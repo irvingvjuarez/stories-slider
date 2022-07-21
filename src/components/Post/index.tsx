@@ -8,7 +8,7 @@ import { PostProps } from "./props.interface"
 import { StoryBubble } from "../StoryBubble"
 import { PostIcon } from "@app/components/PostIcon"
 
-const Post: React.FC<PostProps> = ({author, image, likes, description}): JSX.Element => {
+const Post: React.FC<PostProps> = ({author, image, likes, description, created_at}): JSX.Element => {
   const user = USERS.find(user => user.id === author)
 
   return(
@@ -50,6 +50,8 @@ const Post: React.FC<PostProps> = ({author, image, likes, description}): JSX.Ele
           </div>
         )}
       </div>
+
+      <span className="px-3 pt-2 pb-3 block text-sm font-medium text-gray-400">{created_at}</span>
     </div>
   )
 }

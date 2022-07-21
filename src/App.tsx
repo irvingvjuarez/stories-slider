@@ -4,7 +4,7 @@ import { ContentMedia } from "@app/containers/ContentMedia"
 
 function App() {
   return (
-    <div className="App h-auto min-h-screen w-screen bg-black">
+    <div className="App h-auto min-h-screen w-full bg-black">
       <section className="w-full max-w-[900px] mx-auto h-full">
         <Header />
         <Stories />
