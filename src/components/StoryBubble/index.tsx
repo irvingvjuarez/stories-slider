@@ -1,21 +1,27 @@
 interface StoryBubbleProps {
   imgUrl: string
   name: string
+  width?: string
+  height?: string
+  isPost?: boolean
 }
 
 const StoryBubble: React.FC<StoryBubbleProps> = ({
   imgUrl,
-  name
+  name,
+  width = "w-16",
+  height = "h-16",
+  isPost = false
 }): JSX.Element => {
   return(
-    <div className="flex flex-col items-center">
-      <div className="w-16 h-16 gradient rounded-full p-[2px] mb-1 md:w-20 md:h-20">
+    <div className={`flex items-center ${!isPost && "flex-col"}`}>
+      <div className={`${width} ${height} gradient rounded-full p-[2px] mb-1 ${isPost && "mr-2"} ${!isPost && "md:w-20 md:h-20"}`}>
         <div className="w-full h-full bg-black rounded-full overflow-hidden">
           <img src={imgUrl} alt="" className="w-full h-full rounded-full" />
         </div>
       </div>
 
-      <h3 className="text-white text-xs whitespace-nowrap text-ellipsis overflow-hidden w-16 font-bold text-center md:w-20 md:text-md">
+      <h3 className={`text-white text-sm font-bold text-center ${!isPost && "whitespace-nowrap text-ellipsis overflow-hidden w-16 text-xs"} md:w-20 md:text-md ${isPost && "md:text-lg"}`}>
         {name}
       </h3>
     </div>
