@@ -6,7 +6,7 @@ const ContentMedia: React.FC = (): JSX.Element => {
   const post = POSTS[0] as PostProps
 
   return(
-    <section className="px-5 py-3">
+    <section>
       <Post {...post} />
     </section>
   )
