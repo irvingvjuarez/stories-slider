@@ -1,6 +1,6 @@
-import avatar1 from "@app/assets/avatar1.jpg"
-import avatar2 from "@app/assets/avatar2.jpg"
-import avatar3 from "@app/assets/avatar3.jpg"
+import avatar1 from "@app/assets/avatars/avatar1.jpg"
+import avatar2 from "@app/assets/avatars/avatar2.jpg"
+import avatar3 from "@app/assets/avatars/avatar3.jpg"
 
 export const USERS = [
   {
