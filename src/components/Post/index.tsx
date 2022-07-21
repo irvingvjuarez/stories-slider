@@ -8,7 +8,7 @@ import { PostProps } from "./props.interface"
 import { StoryBubble } from "../StoryBubble"
 import { PostIcon } from "@app/components/PostIcon"
 
-const Post: React.FC<PostProps> = ({author, image}): JSX.Element => {
+const Post: React.FC<PostProps> = ({author, image, likes, description}): JSX.Element => {
   const user = USERS.find(user => user.id === author)
 
   return(
@@ -29,7 +29,7 @@ const Post: React.FC<PostProps> = ({author, image}): JSX.Element => {
         <img src={image} alt="" className="w-full min-h-[320px] object-cover object-center" />
       </div>
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center px-3 mb-2">
         <div className="flex justify-between items-center space-x-1 md:space-x-2">
           <PostIcon iconFn={() => FiHeart} />
           <PostIcon iconFn={() => TbMessageCircle2} />
@@ -38,6 +38,17 @@ const Post: React.FC<PostProps> = ({author, image}): JSX.Element => {
         <div>
           <PostIcon iconFn={() => BsBookmark} />
         </div>
+      </div>
+
+      <div className="px-3">
+        <h3 className="text-md md:text-lg mb-2">It likes to <strong>{likes}</strong> people</h3>
+
+        {user && (
+          <div>
+            <h2 className="text-md font-semibold inline mr-2">{user.name}</h2>
+            <p className="inline">{description}</p>
+          </div>
+        )}
       </div>
     </div>
   )
