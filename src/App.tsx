@@ -5,6 +5,8 @@ import { AppContext } from "@app/contexts"
 import { getInitialState } from "@app/services/getInitialState"
 import { useReducer } from "react"
 import { reducerFn } from "@app/reducers"
+import { Portal } from "@app/portals"
+import { StoryPortal } from "@app/portals/StoryPortal"
 
 function App() {
   const [state, dispatch] = useReducer(reducerFn, getInitialState())
@@ -21,6 +23,10 @@ function App() {
           <Stories />
           <ContentMedia />
         </section>
+
+        <Portal>
+          <StoryPortal />
+        </Portal>
       </div>
     </AppContext.Provider>
   )

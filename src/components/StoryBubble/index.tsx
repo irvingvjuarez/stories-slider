@@ -23,12 +23,10 @@ const StoryBubble: React.FC<StoryBubbleProps> = ({
     if(dispatch) dispatch({ type: REDUCER_TYPES.toggleModal })
   }
 
-  console.log({modal})
-
   return(
     <div
-      className={`flex items-center cursor-pointer ${!isPost && "flex-col"}`}
-      onClick={handleClick} >
+      className={`flex items-center ${!isPost && "flex-col cursor-pointer"}`}
+      onClick={!isPost ? handleClick : () => null} >
       <div className={`${width} ${height} gradient rounded-full p-[2px] mb-1 ${isPost && "mr-2"} ${!isPost && "md:w-20 md:h-20"}`}>
         <div className="w-full h-full bg-black rounded-full overflow-hidden">
           <img src={imgUrl} alt="" className="w-full h-full rounded-full" />
