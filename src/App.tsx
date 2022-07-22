@@ -4,7 +4,6 @@ import { ContentMedia } from "@app/containers/ContentMedia"
 import { AppContext } from "@app/contexts"
 import { getInitialState } from "@app/services/getInitialState"
 import { useReducer } from "react"
-import { IAppContext } from "./contexts/types.interface"
 import { reducerFn } from "@app/reducers"
 
 function App() {
