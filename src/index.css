@@ -2,10 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  position: relative;
+  color: white;
+}
+
+.portal{
+  position: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
 .gradient {
   background: linear-gradient(to right top,#ffc600 20%,#ff0040,#e600cc 80%);
 }
 
-body{
-  color: white;
+.hidden{
+  overflow: hidden;
 }

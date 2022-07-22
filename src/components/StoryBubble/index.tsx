@@ -2,6 +2,7 @@ import { AppContext } from "@app/contexts"
 import { IAppContext } from "@app/contexts/types.interface"
 import { REDUCER_TYPES } from "@app/reducers/types.enums"
 import { useContext } from "react"
+import { setOverflowHidden } from "@app/services/setOverflowHidden"
 
 interface StoryBubbleProps {
   imgUrl: string
@@ -21,6 +22,7 @@ const StoryBubble: React.FC<StoryBubbleProps> = ({
   const { dispatch, modal } = useContext(AppContext) as IAppContext
   const handleClick = () =>{
     if(dispatch) dispatch({ type: REDUCER_TYPES.toggleModal })
+    setOverflowHidden("body")
   }
 
   return(
