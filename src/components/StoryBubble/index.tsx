@@ -1,3 +1,8 @@
+import { AppContext } from "@app/contexts"
+import { IAppContext } from "@app/contexts/types.interface"
+import { REDUCER_TYPES } from "@app/reducers/types.enums"
+import { useContext } from "react"
+
 interface StoryBubbleProps {
   imgUrl: string
   name: string
@@ -13,8 +18,17 @@ const StoryBubble: React.FC<StoryBubbleProps> = ({
   height = "h-16",
   isPost = false
 }): JSX.Element => {
+  const { dispatch, modal } = useContext(AppContext) as IAppContext
+  const handleClick = () =>{
+    if(dispatch) dispatch({ type: REDUCER_TYPES.toggleModal })
+  }
+
+  console.log({modal})
+
   return(
-    <div className={`flex items-center ${!isPost && "flex-col"}`}>
+    <div
+      className={`flex items-center cursor-pointer ${!isPost && "flex-col"}`}
+      onClick={handleClick} >
       <div className={`${width} ${height} gradient rounded-full p-[2px] mb-1 ${isPost && "mr-2"} ${!isPost && "md:w-20 md:h-20"}`}>
         <div className="w-full h-full bg-black rounded-full overflow-hidden">
           <img src={imgUrl} alt="" className="w-full h-full rounded-full" />
