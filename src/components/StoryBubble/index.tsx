@@ -1,8 +1,7 @@
 import { AppContext } from "@app/contexts"
 import { IAppContext } from "@app/contexts/types.interface"
-import { REDUCER_TYPES } from "@app/reducers/types.enums"
 import { useContext } from "react"
-import { setOverflowHidden } from "@app/services/setOverflowHidden"
+import { toggleModal } from "@app/services/toggleModal"
 
 interface StoryBubbleProps {
   imgUrl: string
@@ -19,11 +18,8 @@ const StoryBubble: React.FC<StoryBubbleProps> = ({
   height = "h-16",
   isPost = false
 }): JSX.Element => {
-  const { dispatch, modal } = useContext(AppContext) as IAppContext
-  const handleClick = () =>{
-    if(dispatch) dispatch({ type: REDUCER_TYPES.toggleModal })
-    setOverflowHidden("body")
-  }
+  const { dispatch } = useContext(AppContext) as IAppContext
+  const handleClick = () => dispatch && toggleModal(dispatch)
 
   return(
     <div
