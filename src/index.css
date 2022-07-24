@@ -5,7 +5,6 @@
 body{
   position: relative;
   color: white;
-  min-height: 100vh;
   width: 100%;
 }
 
@@ -21,6 +20,6 @@ body{
   background: linear-gradient(to right top,#ffc600 20%,#ff0040,#e600cc 80%);
 }
 
-.hidden{
-  overflow: hidden;
+.toHidden{
+  overflow-y: hidden;
 }
