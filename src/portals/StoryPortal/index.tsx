@@ -21,14 +21,15 @@ const StoryPortal: React.FC = (): JSX.Element => {
 
   return(
     <section className="fixed top-0 w-full h-screen bg-black">
-      <StoriesHover />
-      <div className="p-3 flex justify-between items-center">
-        <StoryBubble imgUrl={avatar} name={name} isPost={true} width="w-10" height="h-10" />
+      <StoriesHover>
+        <div className="p-3 flex justify-between items-center">
+          <StoryBubble imgUrl={avatar} name={name} isPost={true} width="w-10" height="h-10" />
 
-        <button onClick={handleClick}>
-          <PostIcon iconFn={() => MdOutlineClear} />
-        </button>
-      </div>
+          <button onClick={handleClick}>
+            <PostIcon iconFn={() => MdOutlineClear} />
+          </button>
+        </div>
+      </StoriesHover>
     </section>
   )
 }
