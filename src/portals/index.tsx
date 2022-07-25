@@ -11,7 +11,7 @@ const Portal: React.FC<PortalProps> = ({ children }) => {
   const portalContainer = document.getElementById("portal") as HTMLDivElement
   const { modal } = useContext(AppContext) as IAppContext
 
-  if(modal) return ReactDOM.createPortal(children, portalContainer)
+  if(modal.status) return ReactDOM.createPortal(children, portalContainer)
   
   return null
 }

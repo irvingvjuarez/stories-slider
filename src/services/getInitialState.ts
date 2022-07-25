@@ -4,6 +4,9 @@ import { IPayload } from "@app/reducers/types.interface"
 
 // Returning initial state of the whole
 export const getInitialState = (): IAppContext => ({
-  modal: false,
+  modal: {
+    status: false,
+    userID: undefined
+  },
   dispatch: null
 })

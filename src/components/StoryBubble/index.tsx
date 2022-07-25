@@ -19,7 +19,7 @@ const StoryBubble: React.FC<StoryBubbleProps> = ({
   isPost = false
 }): JSX.Element => {
   const { dispatch } = useContext(AppContext) as IAppContext
-  const handleClick = () => dispatch && toggleModal(dispatch)
+  const handleClick = () => dispatch && toggleModal(dispatch, name)
 
   return(
     <div

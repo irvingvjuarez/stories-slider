@@ -1,9 +1,9 @@
-import logo from "@app/assets/stories-logo.png"
+import { Logo } from "@app/components/Logo"
 
 const Header: React.FC = (): JSX.Element => {
   return(
     <header className="p-5">
-      <img src={logo} width="160" alt="" />
+      <Logo />      
     </header>
   )
 }

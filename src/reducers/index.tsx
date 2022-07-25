@@ -9,7 +9,10 @@ export const reducerFn = (state: IAppContext, payload: IPayload) => {
     case REDUCER_TYPES.toggleModal:
       return {
         ...state,
-        modal: !state.modal
+        modal: {
+          status: !state.modal.status,
+          userID: content ?? null
+        }
       }
     default:
       return state

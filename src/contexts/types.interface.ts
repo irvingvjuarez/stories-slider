@@ -1,6 +1,9 @@
 import { IPayload } from "@app/reducers/types.interface"
 
 export interface IAppContext {
-  modal: boolean,
+  modal: {
+    status: boolean
+    userID: string | number | undefined
+  },
   dispatch: React.Dispatch<IPayload> | null
 }
