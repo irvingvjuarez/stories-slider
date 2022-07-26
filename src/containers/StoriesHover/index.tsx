@@ -8,12 +8,20 @@ interface StoriesHoverProps {
   userStories: string[]
 }
 
+const setTransition = (spanId: string) => {
+  const spanTransition = document.getElementById(spanId)
+  spanTransition?.classList.add("story-hover-transition")
+}
+
 const StoriesHover: React.FC<StoriesHoverProps> = ({ children, userStories }): JSX.Element => {
   const { currentStories } = useContext(StoriesContext) as IStoriesContext
 
   useEffect(() => {
-    const spanTransition = document.getElementById(currentStories[0])
-    spanTransition?.classList.add("story-hover-transition")
+    let timer = 0
+    for(let stories of currentStories){
+      setTimeout(() => setTransition(stories), timer)
+      timer += 5000
+    }
   }, [])
 
   return(
