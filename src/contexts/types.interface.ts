@@ -9,5 +9,5 @@ export interface IAppContext {
 }
 
 export interface IStoriesContext {
-  
+  currentStories: string[]
 }

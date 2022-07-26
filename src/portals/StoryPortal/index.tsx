@@ -7,7 +7,7 @@ import { StoriesHover } from "@app/containers/StoriesHover"
 import { AppContext } from "@app/contexts"
 import { StoriesContext } from "@app/contexts/StoriesContext"
 import { storiesReducer } from "@app/reducers/storiesReducer"
-import { IAppContext } from "@app/contexts/types.interface"
+import { IAppContext, IStoriesContext } from "@app/contexts/types.interface"
 import { toggleModal } from "@app/services/toggleModal"
 import { IUsers } from "@app/data/interfaces/users.interface"
 import { USERS } from "@app/data/users"
@@ -17,7 +17,7 @@ const StoryPortal: React.FC = (): JSX.Element => {
   const { dispatch, modal } = useContext(AppContext) as IAppContext
   const handleClick = () => dispatch && toggleModal(dispatch)
   const currentStories = STORIES[0].stories
-  const storiesState = useReducer(storiesReducer, currentStories)
+  const [storiesState, storiesDispatch] = useReducer(storiesReducer, { currentStories })
 
   /** modal.userID equals name */
   const storyUser = USERS.find(user => user.name === modal.userID) as IUsers
