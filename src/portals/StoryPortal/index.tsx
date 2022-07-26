@@ -12,6 +12,7 @@ import { toggleModal } from "@app/services/toggleModal"
 import { IUsers } from "@app/data/interfaces/users.interface"
 import { USERS } from "@app/data/users"
 import { STORIES } from "@app/data/stories"
+import { STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
 
 const StoryPortal: React.FC = (): JSX.Element => {
   const { dispatch, modal } = useContext(AppContext) as IAppContext

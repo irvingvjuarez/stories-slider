@@ -1,4 +1,7 @@
 import { StoryImg } from "@app/components/StoryImg"
+import { StoriesContext } from "@app/contexts/StoriesContext"
+import { IStoriesContext } from "@app/contexts/types.interface"
+import { useEffect, useContext } from "react"
 
 interface StoriesHoverProps {
   children: JSX.Element
@@ -6,6 +9,7 @@ interface StoriesHoverProps {
 }
 
 const StoriesHover: React.FC<StoriesHoverProps> = ({ children, userStories }): JSX.Element => {
+  const storiesContext = useContext(StoriesContext) as IStoriesContext
 
   return(
     <section className="max-w-[900px] mx-auto">
