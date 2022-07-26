@@ -1,24 +1,26 @@
-import { STORIES } from "@app/data/stories"
 import { StoryImg } from "@app/components/StoryImg"
 
 interface StoriesHoverProps {
   children: JSX.Element
+  userStories: string[]
 }
 
-const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element => {
-  const userStories = STORIES[0]
+const StoriesHover: React.FC<StoriesHoverProps> = ({ children, userStories }): JSX.Element => {
 
   return(
     <section className="max-w-[900px] mx-auto">
       <div className="flex justify-between pt-3 space-x-1 px-1">
-        {userStories.stories.map(story => (
-          <span key={story} className="block w-full h-[2px] rounded-full bg-[rgba(255,255,255,0.6)]"></span>
+        {userStories.map(story => (
+          <div key={story} className="w-full relative">
+            <span className="story-hover"></span>
+            <span className="absolute top-0 left-0 story-hover story-hover-transition"></span>
+          </div>
         ))}
       </div>
 
       {children}
 
-      <StoryImg imgUrl={userStories.stories[0]} />
+      <StoryImg imgUrl={userStories[0]} />
     </section>
   )
 }

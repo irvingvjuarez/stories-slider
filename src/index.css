@@ -23,3 +23,20 @@ body{
 .toHidden{
   overflow-y: hidden;
 }
+
+.story-hover{
+  @apply block w-full h-[2px] rounded-full bg-[rgba(255,255,255,0.25)];
+}
+
+.story-hover-transition{
+  animation: storyHoverTransition 5s linear;
+}
+
+@keyframes storyHoverTransition {
+  0%{
+    width: 0px;
+  }
+  100%{
+    width: 100%;
+  }
+}

@@ -7,3 +7,7 @@ export interface IAppContext {
   },
   dispatch: React.Dispatch<IPayload> | null
 }
+
+export interface IStoriesContext {
+  
+}
