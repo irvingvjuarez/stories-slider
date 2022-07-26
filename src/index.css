@@ -30,6 +30,7 @@ body{
 
 .story-hover-transition{
   animation: storyHoverTransition 5s linear;
+  background-color: white;
 }
 
 @keyframes storyHoverTransition {

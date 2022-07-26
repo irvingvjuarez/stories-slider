@@ -9,7 +9,12 @@ interface StoriesHoverProps {
 }
 
 const StoriesHover: React.FC<StoriesHoverProps> = ({ children, userStories }): JSX.Element => {
-  const storiesContext = useContext(StoriesContext) as IStoriesContext
+  const { currentStories } = useContext(StoriesContext) as IStoriesContext
+
+  useEffect(() => {
+    const spanTransition = document.getElementById(currentStories[0])
+    spanTransition?.classList.add("story-hover-transition")
+  }, [])
 
   return(
     <section className="max-w-[900px] mx-auto">
@@ -17,7 +22,7 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children, userStories }): J
         {userStories.map(story => (
           <div key={story} className="w-full relative">
             <span className="story-hover"></span>
-            <span className="absolute top-0 left-0 story-hover story-hover-transition"></span>
+            <span className="absolute top-0 left-0 story-hover" id={story}></span>
           </div>
         ))}
       </div>
