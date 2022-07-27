@@ -19,10 +19,13 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
   const { dispatch } = useContext(AppContext) as IAppContext
 
   useEffect(() => {
+    if(currentStory === currentStories[0]) setTransition(currentStory)
+
     setTimeout(() => {
       const currentIndex = currentStories.findIndex(stories => stories === currentStory)
       if(currentIndex < currentStories.length - 1){
         const newIndex = currentIndex + 1
+        setTransition(currentStories[newIndex])
         if(storiesDispatch) storiesDispatch({
           type: STORIES_REDUCER_TYPES.setSingleStory,
           content: currentStories[newIndex]

@@ -12,8 +12,6 @@ export const storiesReducer = (state: IStoriesContext, payload: IPayload): IStor
         currentStories: content
       }
     case STORIES_REDUCER_TYPES.setSingleStory:
-      console.log({ content })
-
       return{
         ...state,
         currentStory: content
