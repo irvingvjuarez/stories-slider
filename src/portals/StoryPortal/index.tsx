@@ -7,6 +7,7 @@ import { StoriesHover } from "@app/containers/StoriesHover"
 import { AppContext } from "@app/contexts"
 import { StoriesContext } from "@app/contexts/StoriesContext"
 import { storiesReducer } from "@app/reducers/storiesReducer"
+import { getInitialValue } from "@app/reducers/storiesReducer/getInitialValue"
 import { IAppContext, IStoriesContext } from "@app/contexts/types.interface"
 import { toggleModal } from "@app/services/toggleModal"
 import { IUsers } from "@app/data/interfaces/users.interface"
@@ -17,17 +18,17 @@ import { STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
 const StoryPortal: React.FC = (): JSX.Element => {
   const { dispatch, modal } = useContext(AppContext) as IAppContext
   const handleClick = () => dispatch && toggleModal(dispatch)
-  const currentStories = STORIES[0].stories
-  const [storiesState, storiesDispatch] = useReducer(storiesReducer, { currentStories })
+  // const currentStories = STORIES[0].stories
+  const [storiesState, storiesDispatch] = useReducer(storiesReducer, getInitialValue(STORIES[0].stories))
 
   /** modal.userID equals name */
   const storyUser = USERS.find(user => user.name === modal.userID) as IUsers
   const { avatar, name } = storyUser
 
   return(
-    <StoriesContext.Provider value={storiesState}>
+    <StoriesContext.Provider value={storiesState as IStoriesContext}>
       <section className="fixed top-0 w-full h-screen bg-black">
-        <StoriesHover userStories={currentStories}>
+        <StoriesHover>
           <div className="p-3 flex justify-between items-center">
             <StoryBubble imgUrl={avatar} name={name} isPost={true} width="w-10" height="h-10" />
 
