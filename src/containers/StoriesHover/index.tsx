@@ -1,6 +1,8 @@
 import { StoryImg } from "@app/components/StoryImg"
+import { AppContext } from "@app/contexts"
 import { StoriesContext } from "@app/contexts/StoriesContext"
-import { IStoriesContext } from "@app/contexts/types.interface"
+import { IAppContext, IStoriesContext } from "@app/contexts/types.interface"
+import { REDUCER_TYPES, STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
 import { useEffect, useContext } from "react"
 
 interface StoriesHoverProps {
@@ -13,16 +15,25 @@ const setTransition = (spanId: string) => {
 }
 
 const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element => {
-  const { currentStories } = useContext(StoriesContext) as IStoriesContext
+  const { currentStories, currentStory, storiesDispatch } = useContext(StoriesContext) as IStoriesContext
+  const { dispatch } = useContext(AppContext) as IAppContext
 
   useEffect(() => {
-    let timer = 0
-    for(let stories of currentStories){
-      setTimeout(() => setTransition(stories), timer)
-      timer += 5000
-    }
-  }, [])
+    setTimeout(() => {
+      const currentIndex = currentStories.findIndex(stories => stories === currentStory)
+      if(currentIndex < currentStories.length - 1){
+        const newIndex = currentIndex + 1
+        if(storiesDispatch) storiesDispatch({
+          type: STORIES_REDUCER_TYPES.setSingleStory,
+          content: currentStories[newIndex]
+        })
+      }else{
+        if(dispatch) dispatch({ type: REDUCER_TYPES.toggleModal })
+      }
+    }, 5000)
 
+  }, [currentStory])
+  
   return(
     <section className="max-w-[900px] mx-auto">
       <div className="flex justify-between pt-3 space-x-1 px-1">
@@ -36,7 +47,7 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
 
       {children}
 
-      <StoryImg imgUrl={currentStories[0]} />
+      <StoryImg imgUrl={currentStory} />
     </section>
   )
 }

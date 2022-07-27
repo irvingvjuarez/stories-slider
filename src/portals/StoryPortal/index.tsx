@@ -20,13 +20,17 @@ const StoryPortal: React.FC = (): JSX.Element => {
   const handleClick = () => dispatch && toggleModal(dispatch)
   // const currentStories = STORIES[0].stories
   const [storiesState, storiesDispatch] = useReducer(storiesReducer, getInitialValue(STORIES[0].stories))
+  const storiesStateInitialValue = {
+    ...storiesState as IStoriesContext,
+    storiesDispatch
+  }
 
   /** modal.userID equals name */
   const storyUser = USERS.find(user => user.name === modal.userID) as IUsers
   const { avatar, name } = storyUser
 
   return(
-    <StoriesContext.Provider value={storiesState as IStoriesContext}>
+    <StoriesContext.Provider value={storiesStateInitialValue as IStoriesContext}>
       <section className="fixed top-0 w-full h-screen bg-black">
         <StoriesHover>
           <div className="p-3 flex justify-between items-center">

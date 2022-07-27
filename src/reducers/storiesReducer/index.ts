@@ -6,10 +6,17 @@ export const storiesReducer = (state: IStoriesContext, payload: IPayload): IStor
   const { type, content } = payload
 
   switch(type){
-    case STORIES_REDUCER_TYPES.setStory:
+    case STORIES_REDUCER_TYPES.setStories:
       return {
         ...state,
         currentStories: content
+      }
+    case STORIES_REDUCER_TYPES.setSingleStory:
+      console.log({ content })
+
+      return{
+        ...state,
+        currentStory: content
       }
     default:
       return state

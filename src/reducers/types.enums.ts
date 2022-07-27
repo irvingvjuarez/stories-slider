@@ -3,5 +3,6 @@ export enum REDUCER_TYPES {
 }
 
 export enum STORIES_REDUCER_TYPES {
-  setStory = "set_story"
+  setStories = "set_stories",
+  setSingleStory = "set_single_story"
 }
