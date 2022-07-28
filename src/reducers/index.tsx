@@ -15,6 +15,15 @@ export const reducerFn = (state: IAppContext, payload: IPayload) => {
           userName: config?.userName
         }
       }
+    case REDUCER_TYPES.setModalUser:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          userId: config?.userId,
+          userName: config?.userName
+        }
+      }
     default:
       return state
   }

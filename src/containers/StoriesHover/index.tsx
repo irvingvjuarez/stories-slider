@@ -9,6 +9,8 @@ import { REDUCER_TYPES, STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
 import { getCurrentStory, initTransition } from "./utils"
 import { STORY_TIMING } from "@app/globals"
 import { toggleModal } from "@app/services/toggleModal"
+import { STORIES } from "@app/data/stories"
+import { USERS } from "@app/data/users"
 
 interface StoriesHoverProps {
   children: JSX.Element
@@ -32,10 +34,20 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
           content: currentStories[newIndex]
         })
       }else{
-        console.log({
-          userId
-        })
-        if(dispatch) toggleModal(dispatch)
+        if(userId < STORIES.length - 1){
+          if(storiesDispatch) storiesDispatch({
+            type: STORIES_REDUCER_TYPES.setNewStoriesBatch,
+            config: {
+              newStoriesBatch: STORIES[userId + 1].stories,
+            }
+          })
+          if(dispatch) dispatch({ type: REDUCER_TYPES.setModalUser, config: {
+            userId: userId + 1,
+            userName: USERS.find(user => user.id === userId + 1)?.name
+          } })
+        }else{
+          if(dispatch) toggleModal(dispatch)
+        }
       }
     }, STORY_TIMING)
 

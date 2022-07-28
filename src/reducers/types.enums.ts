@@ -1,8 +1,10 @@
 export enum REDUCER_TYPES {
-  toggleModal = "toggle_modal"
+  toggleModal = "toggle_modal",
+  setModalUser = "set_modal_user"
 }
 
 export enum STORIES_REDUCER_TYPES {
   setStories = "set_stories",
-  setSingleStory = "set_single_story"
+  setSingleStory = "set_single_story",
+  setNewStoriesBatch = "set_new_story_batch"
 }
