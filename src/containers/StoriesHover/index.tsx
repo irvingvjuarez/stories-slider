@@ -16,7 +16,7 @@ interface StoriesHoverProps {
 
 const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element => {
   const { currentStories, currentStory, storiesDispatch } = useContext(StoriesContext) as IStoriesContext
-  const { dispatch } = useContext(AppContext) as IAppContext
+  const { dispatch, modal:{ userId } } = useContext(AppContext) as IAppContext
 
   // Handling stories sliding
   useEffect(() => {
@@ -32,6 +32,9 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
           content: currentStories[newIndex]
         })
       }else{
+        console.log({
+          userId
+        })
         if(dispatch) toggleModal(dispatch)
       }
     }, STORY_TIMING)

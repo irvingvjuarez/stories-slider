@@ -17,7 +17,7 @@ import { STORIES } from "@app/data/stories"
 const StoryPortal: React.FC = (): JSX.Element => {
   const { dispatch, modal } = useContext(AppContext) as IAppContext
   const handleClick = () => dispatch && toggleModal(dispatch)
-  const [storiesState, storiesDispatch] = useReducer(storiesReducer, getInitialValue(STORIES[0].stories))
+  const [storiesState, storiesDispatch] = useReducer(storiesReducer, getInitialValue(STORIES[0].stories, modal.userId))
   const storiesStateInitialValue = {
     ...storiesState as IStoriesContext,
     storiesDispatch

@@ -11,7 +11,7 @@ export const reducerFn = (state: IAppContext, payload: IPayload) => {
         ...state,
         modal: {
           status: !state.modal.status,
-          userID: config?.userId,
+          userId: config?.userId,
           userName: config?.userName
         }
       }
