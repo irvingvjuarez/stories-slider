@@ -3,7 +3,7 @@ import { REDUCER_TYPES } from "./types.enums"
 import { IPayload } from "./types.interface"
 
 export const reducerFn = (state: IAppContext, payload: IPayload) => {
-  const { type, content } = payload
+  const { type, config } = payload
 
   switch(type){
     case REDUCER_TYPES.toggleModal:
@@ -11,7 +11,8 @@ export const reducerFn = (state: IAppContext, payload: IPayload) => {
         ...state,
         modal: {
           status: !state.modal.status,
-          userID: content ?? null
+          userID: config?.userId,
+          userName: config?.userName
         }
       }
     default:

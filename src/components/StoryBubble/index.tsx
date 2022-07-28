@@ -5,7 +5,8 @@ import { toggleModal } from "@app/services/toggleModal"
 
 interface StoryBubbleProps {
   imgUrl: string
-  name: string
+  userName: string
+  userId: number
   width?: string
   height?: string
   isPost?: boolean
@@ -13,13 +14,17 @@ interface StoryBubbleProps {
 
 const StoryBubble: React.FC<StoryBubbleProps> = ({
   imgUrl,
-  name,
+  userName,
+  userId,
   width = "w-16",
   height = "h-16",
   isPost = false
 }): JSX.Element => {
   const { dispatch } = useContext(AppContext) as IAppContext
-  const handleClick = () => dispatch && toggleModal(dispatch, name)
+  const handleClick = () => dispatch && toggleModal(dispatch, {
+    userName,
+    userId
+  })
 
   return(
     <div
@@ -32,7 +37,7 @@ const StoryBubble: React.FC<StoryBubbleProps> = ({
       </div>
 
       <h3 className={`text-white text-sm font-bold text-center ${!isPost && "whitespace-nowrap text-ellipsis overflow-hidden w-16 text-xs"} md:w-20 md:text-md ${isPost && "md:text-lg"}`}>
-        {name}
+        {userName}
       </h3>
     </div>
   )

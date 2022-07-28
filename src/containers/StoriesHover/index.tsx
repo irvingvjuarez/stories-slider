@@ -8,6 +8,7 @@ import { REDUCER_TYPES, STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
 
 import { getCurrentStory, initTransition } from "./utils"
 import { STORY_TIMING } from "@app/globals"
+import { toggleModal } from "@app/services/toggleModal"
 
 interface StoriesHoverProps {
   children: JSX.Element
@@ -31,7 +32,7 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
           content: currentStories[newIndex]
         })
       }else{
-        if(dispatch) dispatch({ type: REDUCER_TYPES.toggleModal })
+        if(dispatch) toggleModal(dispatch)
       }
     }, STORY_TIMING)
 

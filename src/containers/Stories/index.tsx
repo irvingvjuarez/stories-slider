@@ -8,7 +8,8 @@ const Stories: React.FC = (): JSX.Element => {
         <StoryBubble
           key={user.id}
           imgUrl={user.avatar}
-          name={user.name} />
+          userName={user.name}
+          userId={user.id} />
       ))}
     </section>
   )
