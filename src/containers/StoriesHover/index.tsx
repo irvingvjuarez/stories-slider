@@ -1,31 +1,31 @@
+import { useEffect, useContext } from "react"
+
 import { StoryImg } from "@app/components/StoryImg"
 import { AppContext } from "@app/contexts"
 import { StoriesContext } from "@app/contexts/StoriesContext"
 import { IAppContext, IStoriesContext } from "@app/contexts/types.interface"
 import { REDUCER_TYPES, STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
-import { useEffect, useContext } from "react"
+
+import { getCurrentStory, initTransition } from "./utils"
+import { STORY_TIMING } from "@app/globals"
 
 interface StoriesHoverProps {
   children: JSX.Element
-}
-
-const setTransition = (spanId: string) => {
-  const spanTransition = document.getElementById(spanId)
-  spanTransition?.classList.add("story-hover-transition")
 }
 
 const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element => {
   const { currentStories, currentStory, storiesDispatch } = useContext(StoriesContext) as IStoriesContext
   const { dispatch } = useContext(AppContext) as IAppContext
 
+  // Handling stories sliding
   useEffect(() => {
-    if(currentStory === currentStories[0]) setTransition(currentStory)
+    if(currentStory === currentStories[0]) initTransition(currentStory)
 
     setTimeout(() => {
-      const currentIndex = currentStories.findIndex(stories => stories === currentStory)
-      if(currentIndex < currentStories.length - 1){
-        const newIndex = currentIndex + 1
-        setTransition(currentStories[newIndex])
+      const { currentStoryIndex } = getCurrentStory(currentStories, currentStory)
+      if(currentStoryIndex < currentStories.length - 1){
+        const newIndex = currentStoryIndex + 1
+        initTransition(currentStories[newIndex])
         if(storiesDispatch) storiesDispatch({
           type: STORIES_REDUCER_TYPES.setSingleStory,
           content: currentStories[newIndex]
@@ -33,7 +33,7 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
       }else{
         if(dispatch) dispatch({ type: REDUCER_TYPES.toggleModal })
       }
-    }, 5000)
+    }, STORY_TIMING)
 
   }, [currentStory])
   
