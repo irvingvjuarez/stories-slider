@@ -1,5 +1,6 @@
-import { useContext, useReducer } from "react"
+import { useContext, useReducer, useState } from "react"
 import { MdOutlineClear } from "react-icons/md"
+import { FaPause, FaPlay } from "react-icons/fa"
 import { PostIcon } from "@app/components/PostIcon"
 import { StoryBubble } from "@app/components/StoryBubble"
 import { StoriesHover } from "@app/containers/StoriesHover"
@@ -16,7 +17,7 @@ import { STORIES } from "@app/data/stories"
 
 const StoryPortal: React.FC = (): JSX.Element => {
   const { dispatch, modal } = useContext(AppContext) as IAppContext
-  const handleClick = () => dispatch && toggleModal(dispatch)
+  const [inPause, setInPause] = useState<boolean>(false)
   const [storiesState, storiesDispatch] = useReducer(
     storiesReducer,
     getInitialValue(STORIES[modal.userId].stories, modal.userId)
@@ -25,6 +26,9 @@ const StoryPortal: React.FC = (): JSX.Element => {
     ...storiesState as IStoriesContext,
     storiesDispatch
   }
+
+  const handleClick = () => dispatch && toggleModal(dispatch)
+  const handlePause = () => setInPause(prev => !prev)
 
   /** modal.userID equals name */
   const storyUser = USERS.find(user => user.name === modal.userName) as IUsers
@@ -44,9 +48,19 @@ const StoryPortal: React.FC = (): JSX.Element => {
               height="h-10"
             />
 
-            <button onClick={handleClick}>
-              <PostIcon iconFn={() => MdOutlineClear} />
-            </button>
+            <div className="flex items-center space-x-2">
+              <button onClick={handlePause}>
+                <PostIcon
+                  iconFn={() => inPause ? FaPlay : FaPause}
+                  iconSize="text-sm"
+                  iconSizeMd="text-xl"
+                />
+              </button>
+
+              <button onClick={handleClick}>
+                <PostIcon iconFn={() => MdOutlineClear} />
+              </button>
+            </div>
           </div>
         </StoriesHover>
       </section>
