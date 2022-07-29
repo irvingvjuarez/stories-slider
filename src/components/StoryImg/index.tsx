@@ -25,40 +25,40 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl, storiesBatch }): JSX.Elemen
     initTransition(storiesBatch[currentStoryIndex])
 
     // Handling stories sliding
-    // setTimeout(() => {
-    //   const storiesRemaining = currentStoryIndex < storiesBatch.length - 1
+    setTimeout(() => {
+      const storiesRemaining = currentStoryIndex < storiesBatch.length - 1
 
-    //   if(storiesRemaining){
-    //     const newIndex = currentStoryIndex + 1
+      if(storiesRemaining){
+        const newIndex = currentStoryIndex + 1
 
-    //     storiesDispatch?.({
-    //       type: STORIES_REDUCER_TYPES.setSingleStory,
-    //       content: storiesBatch[newIndex]
-    //     })
-    //   }
+        storiesDispatch?.({
+          type: STORIES_REDUCER_TYPES.setSingleStory,
+          content: storiesBatch[newIndex]
+        })
+      }
 
-    //   if(!storiesRemaining) {
-    //     const moreUsersStories = userId < STORIES.length - 1
+      if(!storiesRemaining) {
+        const moreUsersStories = userId < STORIES.length - 1
 
-    //     if(moreUsersStories){
-    //       const newStoriesBatch = STORIES[userId + 1].stories
-    //       const userName = USERS.find(user => user.id === userId + 1)?.name
+        if(moreUsersStories){
+          const newStoriesBatch = STORIES[userId + 1].stories
+          const userName = USERS.find(user => user.id === userId + 1)?.name
 
-    //       storiesDispatch?.({
-    //         type: STORIES_REDUCER_TYPES.setNewStoriesBatch,
-    //         config: { newStoriesBatch }
-    //       })
+          storiesDispatch?.({
+            type: STORIES_REDUCER_TYPES.setNewStoriesBatch,
+            config: { newStoriesBatch }
+          })
 
-    //       dispatch?.({ type: REDUCER_TYPES.setModalUser, config: {
-    //         userId: userId + 1,
-    //         userName
-    //       }})
-    //     }
+          dispatch?.({ type: REDUCER_TYPES.setModalUser, config: {
+            userId: userId + 1,
+            userName
+          }})
+        }
 
-    //     if(!moreUsersStories) toggleModal(dispatch as React.Dispatch<IPayload>)
-    //   }
+        if(!moreUsersStories) toggleModal(dispatch as React.Dispatch<IPayload>)
+      }
 
-    // }, STORY_TIMING)
+    }, STORY_TIMING)
   }
 
   return(

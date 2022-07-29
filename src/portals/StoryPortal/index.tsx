@@ -17,6 +17,7 @@ import { STORIES } from "@app/data/stories"
 
 const StoryPortal: React.FC = (): JSX.Element => {
   const { dispatch, modal } = useContext(AppContext) as IAppContext
+
   const [inPause, setInPause] = useState<boolean>(false)
   const [storiesState, storiesDispatch] = useReducer(
     storiesReducer,
@@ -28,7 +29,12 @@ const StoryPortal: React.FC = (): JSX.Element => {
   }
 
   const handleClick = () => dispatch && toggleModal(dispatch)
-  const handlePause = () => setInPause(prev => !prev)
+  const handlePause = () => {
+    const spanElement = document.getElementById(storiesStateInitialValue.currentStory)
+    spanElement?.classList.toggle("animation-pause")
+
+    setInPause(prev => !prev)
+  }
 
   /** modal.userID equals name */
   const storyUser = USERS.find(user => user.name === modal.userName) as IUsers

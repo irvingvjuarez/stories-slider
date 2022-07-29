@@ -33,6 +33,10 @@ body{
   background-color: white;
 }
 
+.animation-pause{
+  animation-play-state: paused;
+}
+
 @keyframes storyHoverTransition {
   0%{
     width: 0px;
