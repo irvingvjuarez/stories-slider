@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react"
+import React, { useEffect, useContext } from "react"
 
 import { StoryImg } from "@app/components/StoryImg"
 import { AppContext } from "@app/contexts"
@@ -11,6 +11,7 @@ import { STORY_TIMING } from "@app/globals"
 import { toggleModal } from "@app/services/toggleModal"
 import { STORIES } from "@app/data/stories"
 import { USERS } from "@app/data/users"
+import { IPayload } from "@app/reducers/types.interface"
 
 interface StoriesHoverProps {
   children: JSX.Element
@@ -26,28 +27,36 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
 
     setTimeout(() => {
       const { currentStoryIndex } = getCurrentStory(currentStories, currentStory)
-      if(currentStoryIndex < currentStories.length - 1){
+      const storiesRemaining = currentStoryIndex < currentStories.length - 1
+      if(storiesRemaining){
         const newIndex = currentStoryIndex + 1
         initTransition(currentStories[newIndex])
-        if(storiesDispatch) storiesDispatch({
+        
+        storiesDispatch?.({
           type: STORIES_REDUCER_TYPES.setSingleStory,
           content: currentStories[newIndex]
         })
-      }else{
-        if(userId < STORIES.length - 1){
-          if(storiesDispatch) storiesDispatch({
+      }
+      
+      if(!storiesRemaining){
+        const moreUsersStories = userId < STORIES.length - 1
+
+        if(moreUsersStories){
+          const newStoriesBatch = STORIES[userId + 1].stories
+          const userName = USERS.find(user => user.id === userId + 1)?.name
+
+          storiesDispatch?.({
             type: STORIES_REDUCER_TYPES.setNewStoriesBatch,
-            config: {
-              newStoriesBatch: STORIES[userId + 1].stories,
-            }
+            config: { newStoriesBatch }
           })
-          if(dispatch) dispatch({ type: REDUCER_TYPES.setModalUser, config: {
+
+          dispatch?.({ type: REDUCER_TYPES.setModalUser, config: {
             userId: userId + 1,
-            userName: USERS.find(user => user.id === userId + 1)?.name
-          } })
-        }else{
-          if(dispatch) toggleModal(dispatch)
+            userName
+          }})
         }
+        
+        if(!moreUsersStories) toggleModal(dispatch as React.Dispatch<IPayload>)
       }
     }, STORY_TIMING)
 
