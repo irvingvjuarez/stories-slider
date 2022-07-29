@@ -1,64 +1,15 @@
-import React, { useEffect, useContext } from "react"
+import React, { useContext } from "react"
 
 import { StoryImg } from "@app/components/StoryImg"
-import { AppContext } from "@app/contexts"
 import { StoriesContext } from "@app/contexts/StoriesContext"
-import { IAppContext, IStoriesContext } from "@app/contexts/types.interface"
-import { REDUCER_TYPES, STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
-
-import { getCurrentStory, initTransition } from "./utils"
-import { STORY_TIMING } from "@app/globals"
-import { toggleModal } from "@app/services/toggleModal"
-import { STORIES } from "@app/data/stories"
-import { USERS } from "@app/data/users"
-import { IPayload } from "@app/reducers/types.interface"
+import { IStoriesContext } from "@app/contexts/types.interface"
 
 interface StoriesHoverProps {
   children: JSX.Element
 }
 
 const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element => {
-  const { currentStories, currentStory, storiesDispatch } = useContext(StoriesContext) as IStoriesContext
-  const { dispatch, modal:{ userId } } = useContext(AppContext) as IAppContext
-
-  // Handling stories sliding
-  useEffect(() => {
-
-    setTimeout(() => {
-      const { currentStoryIndex } = getCurrentStory(currentStories, currentStory)
-      const storiesRemaining = currentStoryIndex < currentStories.length - 1
-      if(storiesRemaining){
-        const newIndex = currentStoryIndex + 1
-
-        storiesDispatch?.({
-          type: STORIES_REDUCER_TYPES.setSingleStory,
-          content: currentStories[newIndex]
-        })
-      }
-      
-      if(!storiesRemaining){
-        const moreUsersStories = userId < STORIES.length - 1
-
-        if(moreUsersStories){
-          const newStoriesBatch = STORIES[userId + 1].stories
-          const userName = USERS.find(user => user.id === userId + 1)?.name
-
-          storiesDispatch?.({
-            type: STORIES_REDUCER_TYPES.setNewStoriesBatch,
-            config: { newStoriesBatch }
-          })
-
-          dispatch?.({ type: REDUCER_TYPES.setModalUser, config: {
-            userId: userId + 1,
-            userName
-          }})
-        }
-        
-        if(!moreUsersStories) toggleModal(dispatch as React.Dispatch<IPayload>)
-      }
-    }, STORY_TIMING)
-
-  }, [currentStory])
+  const { currentStories, currentStory } = useContext(StoriesContext) as IStoriesContext
   
   return(
     <section className="max-w-[900px] mx-auto">
