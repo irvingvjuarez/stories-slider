@@ -23,15 +23,13 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
 
   // Handling stories sliding
   useEffect(() => {
-    if(currentStory === currentStories[0]) initTransition(currentStory)
 
     setTimeout(() => {
       const { currentStoryIndex } = getCurrentStory(currentStories, currentStory)
       const storiesRemaining = currentStoryIndex < currentStories.length - 1
       if(storiesRemaining){
         const newIndex = currentStoryIndex + 1
-        initTransition(currentStories[newIndex])
-        
+
         storiesDispatch?.({
           type: STORIES_REDUCER_TYPES.setSingleStory,
           content: currentStories[newIndex]
@@ -75,7 +73,9 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
 
       {children}
 
-      <StoryImg imgUrl={currentStory} />
+      <StoryImg
+        imgUrl={currentStory}
+        storiesBatch={currentStories} />
     </section>
   )
 }
