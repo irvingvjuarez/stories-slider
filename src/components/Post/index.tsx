@@ -16,7 +16,8 @@ const Post: React.FC<PostProps> = ({author, image, likes, description, created_a
       <div className="w-full flex justify-between items-center mb-2 px-3 pt-4">
         {user && <StoryBubble
           imgUrl={user.avatar}
-          name={user.name}
+          userName={user.name}
+          userId={user.id}
           width="w-11"
           height="w-11"
           isPost={true} />
