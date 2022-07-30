@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useCallback, useContext, useEffect } from "react"
 import { getCurrentStory, initTransition } from "@app/containers/StoriesHover/utils"
 
 import { AppContext } from "@app/contexts"
@@ -10,6 +10,7 @@ import { STORY_TIMING } from "@app/globals"
 import { REDUCER_TYPES, STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
 import { IPayload } from "@app/reducers/types.interface"
 import { toggleModal } from "@app/services/toggleModal"
+import { Timer } from "@app/libs/Timer"
 
 interface StoryImgProps {
   imgUrl: string
@@ -19,10 +20,16 @@ interface StoryImgProps {
 const StoryImg: React.FC<StoryImgProps> = ({ imgUrl, storiesBatch }): JSX.Element => {
   const { storiesDispatch } = useContext(StoriesContext) as IStoriesContext
   const { dispatch, modal:{ userId } } = useContext(AppContext) as IAppContext
+  const cb = useCallback(() => console.log("Hi"), [])
+
+  useEffect(() => {
+    new Timer(cb)
+  }, [])
 
   const handleLoad = () => {
     const { currentStoryIndex } = getCurrentStory(storiesBatch, imgUrl)
     initTransition(storiesBatch[currentStoryIndex])
+    Timer.resume()
 
     // Handling stories sliding
     // setTimeout(() => {

@@ -30,14 +30,10 @@ const StoryPortal: React.FC = (): JSX.Element => {
     storiesDispatch
   }
 
-  const cb = useCallback(() => console.log("Hi"), [])
-
-  Timer.resume(cb)
-
   const handleClick = () => dispatch && toggleModal(dispatch)
   const handlePause = () => {
     if(!inPause) Timer.pause()
-    if(inPause) Timer.resume(cb)
+    if(inPause) Timer.resume()
 
     storiesDispatch({ type: STORIES_REDUCER_TYPES.toggleLoading })
     setInPause(prev => !prev)

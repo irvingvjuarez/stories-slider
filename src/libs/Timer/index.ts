@@ -2,11 +2,16 @@ export class Timer {
   static id: number | null
   static timing: number = 5000
   static start: number
+  static callback: () => void
 
-  static resume(callback: () => void) {
+  constructor(callback: () => void){
+    Timer.callback = callback
+  }
+
+  static resume() {
     if(!Timer.id){
       console.log("Resume")
-      Timer.id = window.setTimeout(callback, Timer.timing)
+      Timer.id = window.setTimeout(this.callback, Timer.timing)
       Timer.start = Date.now()
 
       console.log({ id: Timer.id })
