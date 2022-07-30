@@ -17,7 +17,8 @@ export class Timer {
     if(Timer.id){
       console.log("Pause")
       window.clearTimeout(Timer.id)
-      Timer.timing = Date.now() - Timer.start
+      Timer.timing -= Date.now() - Timer.start
+      setTimeout(() => Timer.id = null, 1000)
 
       console.log({
         timing: Timer.timing,
@@ -26,38 +27,3 @@ export class Timer {
     }
   }
 }
-// export const Timer = (
-//   callback: () => void,
-//   timing: number = 5000
-// ) => {
-//   const start = Date.now()
-//   let remainder: number
-
-//   const pause = (timerId: any) => {
-//     console.log("Pause")
-
-//     clearTimeout(timerId)
-//     remainder = Math.abs(Date.now() - start - timing)
-//     console.log({
-//       remainder,
-//     })
-//   }
-
-//   const resume = () => {
-//     console.log("Resume")
-//     const timeout = remainder ?? timing
-//     const timerId = setTimeout(callback, timeout)
-
-//     console.log({
-//       timeout,
-//       timerId
-//     })
-//   }
-
-//   resume()
-
-//   return {
-//     pause,
-//     resume
-//   }
-// }
