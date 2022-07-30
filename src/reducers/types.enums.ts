@@ -6,5 +6,6 @@ export enum REDUCER_TYPES {
 export enum STORIES_REDUCER_TYPES {
   setStories = "set_stories",
   setSingleStory = "set_single_story",
-  setNewStoriesBatch = "set_new_story_batch"
+  setNewStoriesBatch = "set_new_story_batch",
+  toggleLoading = "toggle_loading"
 }

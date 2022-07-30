@@ -5,6 +5,7 @@ export const getInitialValue = (currentStories: string[], userId: number): IStor
     userId,
     currentStories,
     currentStory: currentStories[0],
-    storiesDispatch: null
+    storiesDispatch: null,
+    loading: false
   }
 }

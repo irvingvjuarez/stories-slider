@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 
 import { StoryImg } from "@app/components/StoryImg"
 import { StoriesContext } from "@app/contexts/StoriesContext"
@@ -9,7 +9,14 @@ interface StoriesHoverProps {
 }
 
 const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element => {
-  const { currentStories, currentStory } = useContext(StoriesContext) as IStoriesContext
+  const { currentStories, currentStory, loading } = useContext(StoriesContext) as IStoriesContext
+
+  useEffect(() => {
+    if(loading){
+      const spanElement = document.getElementById(currentStory)
+      spanElement?.classList.toggle("animation-pause")
+    }
+  }, [loading])
   
   return(
     <section className="max-w-[900px] mx-auto">

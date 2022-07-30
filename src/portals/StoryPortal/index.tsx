@@ -7,6 +7,7 @@ import { StoriesHover } from "@app/containers/StoriesHover"
 
 import { AppContext } from "@app/contexts"
 import { StoriesContext } from "@app/contexts/StoriesContext"
+import { STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
 import { storiesReducer } from "@app/reducers/storiesReducer"
 import { getInitialValue } from "@app/reducers/storiesReducer/getInitialValue"
 import { IAppContext, IStoriesContext } from "@app/contexts/types.interface"
@@ -30,9 +31,7 @@ const StoryPortal: React.FC = (): JSX.Element => {
 
   const handleClick = () => dispatch && toggleModal(dispatch)
   const handlePause = () => {
-    const spanElement = document.getElementById(storiesStateInitialValue.currentStory)
-    spanElement?.classList.toggle("animation-pause")
-
+    storiesDispatch({ type: STORIES_REDUCER_TYPES.toggleLoading })
     setInPause(prev => !prev)
   }
 

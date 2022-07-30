@@ -12,6 +12,11 @@ export const storiesReducer = (state: IStoriesContext, payload: IPayload): IStor
         ...state,
         currentStories: content
       }
+    case STORIES_REDUCER_TYPES.toggleLoading:
+      return{
+        ...state,
+        loading: !state.loading
+      }
     case STORIES_REDUCER_TYPES.setSingleStory:
       return{
         ...state,
