@@ -1,4 +1,4 @@
-import { useContext, useReducer, useState } from "react"
+import { useCallback, useContext, useReducer, useState } from "react"
 import { MdOutlineClear } from "react-icons/md"
 import { FaPause, FaPlay } from "react-icons/fa"
 import { PostIcon } from "@app/components/PostIcon"
@@ -15,6 +15,7 @@ import { toggleModal } from "@app/services/toggleModal"
 import { IUsers } from "@app/data/interfaces/users.interface"
 import { USERS } from "@app/data/users"
 import { STORIES } from "@app/data/stories"
+import { Timer } from "@app/libs/Timer"
 
 const StoryPortal: React.FC = (): JSX.Element => {
   const { dispatch, modal } = useContext(AppContext) as IAppContext
@@ -29,8 +30,15 @@ const StoryPortal: React.FC = (): JSX.Element => {
     storiesDispatch
   }
 
+  const cb = useCallback(() => console.log("Hi"), [])
+
+  Timer.resume(cb)
+
   const handleClick = () => dispatch && toggleModal(dispatch)
   const handlePause = () => {
+    if(!inPause) Timer.pause()
+    if(inPause) Timer.resume(cb)
+
     storiesDispatch({ type: STORIES_REDUCER_TYPES.toggleLoading })
     setInPause(prev => !prev)
   }
