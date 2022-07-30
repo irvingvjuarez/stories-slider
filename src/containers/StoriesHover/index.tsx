@@ -12,10 +12,10 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
   const { currentStories, currentStory, loading } = useContext(StoriesContext) as IStoriesContext
 
   useEffect(() => {
-    if(loading){
-      const spanElement = document.getElementById(currentStory)
-      spanElement?.classList.toggle("animation-pause")
-    }
+    const spanElement = document.getElementById(currentStory)
+    
+    if(loading) spanElement?.classList.add("animation-pause")
+    if(!loading) spanElement?.classList.remove("animation-pause")
   }, [loading])
   
   return(
