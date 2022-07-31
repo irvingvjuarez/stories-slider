@@ -17,12 +17,12 @@ interface StoryImgProps {
 }
 
 const StoryImg: React.FC<StoryImgProps> = ({ imgUrl, storiesBatch }): JSX.Element => {
-  const { storiesDispatch } = useContext(StoriesContext) as IStoriesContext
+  const { storiesDispatch, currentStory } = useContext(StoriesContext) as IStoriesContext
   const { dispatch, modal:{ userId } } = useContext(AppContext) as IAppContext
 
   const { currentStoryIndex } = getCurrentStory(storiesBatch, imgUrl)
   const cb = useCallback(() => {
-    Timer.pause()
+    if(Date.now() - Timer.start >= 4998) Timer.pause()
     const storiesRemaining = currentStoryIndex < storiesBatch.length - 1
 
     if(storiesRemaining){
@@ -55,15 +55,20 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl, storiesBatch }): JSX.Elemen
       if(!moreUsersStories) toggleModal(dispatch as React.Dispatch<IPayload>)
     }
   }, [])
-  const timerInitializer = useCallback(() => {
-    new Timer(cb)
-  }, [])
 
-  useEffect(() => timerInitializer(), [])
+  useEffect(() => {
+    let timer: Timer | null = new Timer(cb)
+
+    return () => {
+      timer = null
+    }
+  }, [currentStory])
   
   const handleLoad = () => {
-    initTransition(storiesBatch[currentStoryIndex])
-    Timer.resume(true)
+    if(!Timer.id){
+      initTransition(storiesBatch[currentStoryIndex])
+      Timer.resume(true)
+    }
   }
 
   return(

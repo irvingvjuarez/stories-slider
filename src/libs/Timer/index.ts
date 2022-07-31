@@ -25,15 +25,10 @@ export class Timer {
       console.log("Pause")
       window.clearTimeout(Timer.id)
       let timeRemaining = Timer.timing - (Date.now() - Timer.start)
-      console.log({ timeRemaining })
+      console.log({ timeRemaining, id: Timer.id })
 
       Timer.timing = Timer.timing <= 0 ? STORY_TIMING : timeRemaining
       setTimeout(() => Timer.id = null, 0)
-
-      // console.log({
-      //   timing: Timer.timing,
-      //   id: Timer.id,
-      // })
     }
   }
 }
