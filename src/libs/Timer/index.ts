@@ -14,10 +14,7 @@ export class Timer {
     if(!Timer.id){
       console.log("Resume")
       Timer.id = window.setTimeout(this.callback, Timer.timing)
-      if(firstLoad){
-        // Timer.timing = STORY_TIMING
-        Timer.start = Date.now()
-      }
+      Timer.start = Date.now()
 
       console.log({ id: Timer.id })
     }
@@ -27,7 +24,7 @@ export class Timer {
     if(Timer.id){
       console.log("Pause")
       window.clearTimeout(Timer.id)
-      let timeRemaining = Timer.timing < STORY_TIMING ? Timer.timing - (STORY_TIMING - Timer.timing) : Timer.timing - (Date.now() - Timer.start)
+      let timeRemaining = Timer.timing - (Date.now() - Timer.start)
       console.log({ timeRemaining })
 
       Timer.timing = Timer.timing <= 0 ? STORY_TIMING : timeRemaining
