@@ -9,20 +9,20 @@ import { IPayload } from "@app/reducers/types.interface";
 export const startStoryTransition = (config: startStoryTransitionProps) => () => {
   const { 
     currentStoryIndex,
-    storiesBatch,
+    currentStories,
     storiesDispatch,
     dispatch,
     userId
   } = config
 
-  const storiesRemaining = currentStoryIndex < storiesBatch.length - 1
+  const storiesRemaining = currentStoryIndex < currentStories.length - 1
   
   if(storiesRemaining){
     const newIndex = currentStoryIndex + 1
 
     storiesDispatch?.({
       type: STORIES_REDUCER_TYPES.setSingleStory,
-      content: storiesBatch[newIndex]
+      content: currentStories[newIndex]
     })
   }
 

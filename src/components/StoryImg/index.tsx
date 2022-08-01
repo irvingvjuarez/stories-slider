@@ -9,20 +9,20 @@ import { startStoryTransition } from "./utils"
 import { StoryImgProps, startStoryTransitionProps } from "./types.interface"
 import { Timer } from "@app/libs/Timer"
 
-const StoryImg: React.FC<StoryImgProps> = ({ imgUrl, storiesBatch }): JSX.Element => {
-  const { storiesDispatch } = useContext(StoriesContext) as IStoriesContext
+const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
+  const { storiesDispatch, currentStories } = useContext(StoriesContext) as IStoriesContext
   const { dispatch, modal:{ userId } } = useContext(AppContext) as IAppContext
-  const { currentStoryIndex } = getCurrentStory(storiesBatch, imgUrl)
+  const { currentStoryIndex } = getCurrentStory(currentStories, imgUrl)
   const configStoryTransition: startStoryTransitionProps = {
     userId,
     currentStoryIndex,
-    storiesBatch,
+    currentStories,
     storiesDispatch,
     dispatch,
   }
 
   const handleLoad = () => {
-    initTransition(storiesBatch[currentStoryIndex])
+    initTransition(currentStories[currentStoryIndex])
     Timer.id = setTimeout(startStoryTransition(configStoryTransition), STORY_TIMING)
   }
 

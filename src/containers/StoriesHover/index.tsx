@@ -31,9 +31,7 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
 
       {children}
 
-      <StoryImg
-        imgUrl={currentStory}
-        storiesBatch={currentStories} />
+      <StoryImg imgUrl={currentStory} />
     </section>
   )
 }
