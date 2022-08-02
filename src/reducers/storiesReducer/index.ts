@@ -7,15 +7,23 @@ export const storiesReducer = (state: IStoriesContext, payload: IPayload): IStor
   const config = payload.config as IStoriesConfig
 
   switch(type){
+    case STORIES_REDUCER_TYPES.startTiming:
+      return {
+        ...state,
+        startTiming: Date.now()
+      }
     case STORIES_REDUCER_TYPES.setStories:
       return {
         ...state,
         currentStories: content
       }
     case STORIES_REDUCER_TYPES.toggleLoading:
+      const { loading, timing, startTiming } = state
+
       return{
         ...state,
-        loading: !state.loading
+        loading: !loading,
+        timing: (!loading) ? Date.now() - startTiming : timing
       }
     case STORIES_REDUCER_TYPES.setSingleStory:
       return{

@@ -15,4 +15,6 @@ export interface IStoriesContext {
   currentStory: string;
   loading: boolean;
   storiesDispatch: React.Dispatch<IPayload> | null
+  timing: number;
+  startTiming: number
 }
