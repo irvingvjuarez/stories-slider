@@ -28,7 +28,7 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
 
   const handleLoad = () => {
     initTransition(currentStories[currentStoryIndex])
-    Timer.id = setTimeout(startStoryTransition(configStoryTransition), timing)
+    Timer.id = setTimeout(startStoryTransition(configStoryTransition), STORY_TIMING)
     storiesDispatch?.({ type: STORIES_REDUCER_TYPES.startTiming })
   }
 

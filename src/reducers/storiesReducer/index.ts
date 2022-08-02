@@ -1,4 +1,5 @@
 import { IStoriesContext } from "@app/contexts/types.interface"
+import { STORY_TIMING } from "@app/globals"
 import { STORIES_REDUCER_TYPES } from "../types.enums"
 import { IPayload, IStoriesConfig } from "../types.interface"
 
@@ -10,7 +11,8 @@ export const storiesReducer = (state: IStoriesContext, payload: IPayload): IStor
     case STORIES_REDUCER_TYPES.startTiming:
       return {
         ...state,
-        startTiming: Date.now()
+        startTiming: Date.now(),
+        timing: STORY_TIMING
       }
     case STORIES_REDUCER_TYPES.setStories:
       return {

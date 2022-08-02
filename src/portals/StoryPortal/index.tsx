@@ -34,7 +34,7 @@ const StoryPortal: React.FC = (): JSX.Element => {
     storiesDispatch
   }
     
-  const { timing, currentStories, currentStory } = storiesState
+  const { timing, currentStories, currentStory, startTiming } = storiesState
   const { currentStoryIndex } = getCurrentStory(currentStories, currentStory)
 
   const storyTransitionConfig: startStoryTransitionProps = {
@@ -55,12 +55,7 @@ const StoryPortal: React.FC = (): JSX.Element => {
   }
 
   /** modal.userID equals name */
-  const storyUser = USERS.find(user => user.name === userName) as IUsers
-  const { avatar, name, id } = storyUser
-
-  console.log({
-    timing
-  })
+  const { avatar, name, id } = USERS.find(user => user.name === userName) as IUsers
 
   return(
     <StoriesContext.Provider value={storiesStateInitialValue as IStoriesContext}>
