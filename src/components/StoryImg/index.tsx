@@ -15,7 +15,7 @@ export interface StoryImgProps {
 }
 
 const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
-  const { storiesDispatch, currentStories, timing } = useContext(StoriesContext) as IStoriesContext
+  const { storiesDispatch, currentStories, timing, startTiming } = useContext(StoriesContext) as IStoriesContext
   const { dispatch, modal:{ userId } } = useContext(AppContext) as IAppContext
   const { currentStoryIndex } = getCurrentStory(currentStories, imgUrl)
   const configStoryTransition: startStoryTransitionProps = {
@@ -32,7 +32,7 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
     storiesDispatch?.({ type: STORIES_REDUCER_TYPES.startTiming })
   }
 
-  console.log({ timing })
+  console.log({ timing, startTiming })
 
   return(
     <div className="mx-auto h-[85vh] max-w-[500px] px-2">

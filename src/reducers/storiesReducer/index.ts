@@ -23,7 +23,8 @@ export const storiesReducer = (state: IStoriesContext, payload: IPayload): IStor
       return{
         ...state,
         loading: !loading,
-        timing: (!loading) ? Date.now() - startTiming : timing
+        timing: (!loading) ? timing - (Date.now() - startTiming) : timing,
+        startTiming: Date.now()
       }
     case STORIES_REDUCER_TYPES.setSingleStory:
       return{
