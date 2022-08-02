@@ -16,32 +16,51 @@ import { IUsers } from "@app/data/interfaces/users.interface"
 import { USERS } from "@app/data/users"
 import { STORIES } from "@app/data/stories"
 import { Timer } from "@app/libs/Timer"
+import { startStoryTransition } from "@app/services/startStoryTransition"
+import { startStoryTransitionProps } from "@app/services/startStoryTransition/types.interface"
+import { getCurrentStory } from "@app/containers/StoriesHover/utils"
 
 const StoryPortal: React.FC = (): JSX.Element => {
-  const { dispatch, modal } = useContext(AppContext) as IAppContext
-
+  const { dispatch, modal: { userId, userName } } = useContext(AppContext) as IAppContext
+  
   const [inPause, setInPause] = useState<boolean>(false)
   const [storiesState, storiesDispatch] = useReducer(
     storiesReducer,
-    getInitialValue(STORIES[modal.userId].stories, modal.userId)
+    getInitialValue(STORIES[userId].stories, userId)
   )
+
   const storiesStateInitialValue = {
     ...storiesState as IStoriesContext,
     storiesDispatch
+  }
+    
+  const { timing, currentStories, currentStory } = storiesState
+  const { currentStoryIndex } = getCurrentStory(currentStories, currentStory)
+
+  const storyTransitionConfig: startStoryTransitionProps = {
+    userId,
+    storiesDispatch,
+    dispatch,
+    currentStories,
+    currentStoryIndex
   }
 
   const handleClick = () => dispatch && toggleModal(dispatch)
   const handlePause = () => {
     if(!inPause) clearTimeout(Timer.id)
-    // if(inPause) Timer.resume()
+    if(inPause) Timer.id = setTimeout(startStoryTransition(storyTransitionConfig), timing)
 
     storiesDispatch({ type: STORIES_REDUCER_TYPES.toggleLoading })
     setInPause(prev => !prev)
   }
 
   /** modal.userID equals name */
-  const storyUser = USERS.find(user => user.name === modal.userName) as IUsers
+  const storyUser = USERS.find(user => user.name === userName) as IUsers
   const { avatar, name, id } = storyUser
+
+  console.log({
+    timing
+  })
 
   return(
     <StoriesContext.Provider value={storiesStateInitialValue as IStoriesContext}>
