@@ -5,9 +5,13 @@ import { AppContext } from "@app/contexts"
 import { StoriesContext } from "@app/contexts/StoriesContext"
 import { IAppContext, IStoriesContext } from "@app/contexts/types.interface"
 import { STORY_TIMING } from "@app/globals"
-import { startStoryTransition } from "./utils"
-import { StoryImgProps, startStoryTransitionProps } from "./types.interface"
+import { startStoryTransition } from "@app/services/startStoryTransition/index"
+import { startStoryTransitionProps } from "@app/services/startStoryTransition/types.interface"
 import { Timer } from "@app/libs/Timer"
+
+export interface StoryImgProps {
+  imgUrl: string;
+}
 
 const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
   const { storiesDispatch, currentStories } = useContext(StoriesContext) as IStoriesContext

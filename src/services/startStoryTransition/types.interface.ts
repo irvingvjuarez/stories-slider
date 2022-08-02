@@ -7,7 +7,3 @@ export interface startStoryTransitionProps {
   storiesDispatch: React.Dispatch<IPayload> | null;
   dispatch: React.Dispatch<IPayload> | null;
 }
-
-export interface StoryImgProps {
-  imgUrl: string;
-}
