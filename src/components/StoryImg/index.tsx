@@ -21,6 +21,10 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
   const { storiesDispatch, currentStories } = useContext(StoriesContext) as IStoriesContext
   const { dispatch, modal:{ userId } } = useContext(AppContext) as IAppContext
   const { currentStoryIndex } = getCurrentStory(currentStories, imgUrl)
+
+  const isFirstStory = currentStoryIndex <= 0;
+  const isFirstAuthor = userId <= 0;
+  const isVeryFirstStory = (isFirstAuthor && isFirstStory)
   const isLastStory = currentStoryIndex >= currentStories.length - 1
   const isLastAuthor = userId >= STORIES.length - 1
   const isVeryLastStory = (isLastStory && isLastAuthor)
@@ -35,9 +39,11 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
 
   return(
     <div className="mx-auto h-[85vh] max-w-[500px] px-2 relative">
-      <StoryButton direction="left">
-        <BsFillArrowLeftCircleFill className="text-xl" />
-      </StoryButton>
+      {!isVeryFirstStory && 
+        <StoryButton direction="left">
+          <BsFillArrowLeftCircleFill className="text-xl" />
+        </StoryButton>
+      }
 
       <img
         src={imgUrl}
