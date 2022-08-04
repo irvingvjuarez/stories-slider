@@ -1,13 +1,10 @@
 import { useContext } from "react"
-import { getCurrentStory, initTransition } from "@app/containers/StoriesHover/utils"
+import { getCurrentStory } from "@app/containers/StoriesHover/utils"
 
 import { AppContext } from "@app/contexts"
 import { StoriesContext } from "@app/contexts/StoriesContext"
-import { STORY_TIMING } from "@app/globals"
-import { startStoryTransition } from "@app/services/startStoryTransition/index"
 import { startStoryTransitionProps } from "@app/services/startStoryTransition/types.interface"
-import { Timer } from "@app/libs/Timer"
-import { STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
+import { handleLoad } from "./utils"
 
 import { StoryButton } from "@app/components/StoryButton"
 import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface"
@@ -31,12 +28,6 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
     dispatch,
   }
 
-  const handleLoad = () => {
-    initTransition(currentStories[currentStoryIndex])
-    Timer.id = setTimeout(startStoryTransition(configStoryTransition), STORY_TIMING)
-    storiesDispatch?.({ type: STORIES_REDUCER_TYPES.startTiming })
-  }
-
   return(
     <div className="mx-auto h-[85vh] max-w-[500px] px-2 relative">
       <StoryButton direction="left">
@@ -47,7 +38,7 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
         src={imgUrl}
         alt=""
         className="h-full object-cover object-center rounded-xl"
-        onLoad={handleLoad}
+        onLoad={handleLoad(configStoryTransition)}
       />
 
       <StoryButton>

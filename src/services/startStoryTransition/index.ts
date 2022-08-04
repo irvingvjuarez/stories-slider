@@ -4,7 +4,7 @@ import { STORIES } from "@app/data/stories";
 import { USERS } from "@app/data/users";
 import { toggleModal } from "@app/services/toggleModal";
 import { startStoryTransitionProps } from "./types.interface"
-import { IPayload } from "@app/reducers/types.interface";
+import { IPayload } from "@app/types/interfaces/payload.interface";
 
 export const startStoryTransition = (config: startStoryTransitionProps) => () => {
   const { 
