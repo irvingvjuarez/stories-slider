@@ -7,6 +7,7 @@ import { IPayload } from "@app/types/interfaces/payload.interface"
 import React from "react"
 
 export const handleClick = (dispatch: React.Dispatch<IPayload>) => () => {
+  clearTimeout(Timer.id)
   dispatch && toggleModal(dispatch)
 }
 
