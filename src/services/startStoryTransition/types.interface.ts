@@ -1,4 +1,4 @@
-import { IPayload } from "@app/reducers/types.interface"
+import { IPayload } from "@app/types/interfaces/payload.interface";
 
 export interface startStoryTransitionProps {
   currentStoryIndex: number;
@@ -6,4 +6,7 @@ export interface startStoryTransitionProps {
   userId: number;
   storiesDispatch: React.Dispatch<IPayload> | null;
   dispatch: React.Dispatch<IPayload> | null;
+  timing?: number;
+  inPause?: boolean;
+  setInPause?: React.Dispatch<React.SetStateAction<boolean>>;
 }

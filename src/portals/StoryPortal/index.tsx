@@ -1,4 +1,4 @@
-import { useCallback, useContext, useReducer, useState } from "react"
+import React, { useContext, useReducer, useState } from "react"
 import { MdOutlineClear } from "react-icons/md"
 import { FaPause, FaPlay } from "react-icons/fa"
 import { PostIcon } from "@app/components/PostIcon"
@@ -7,34 +7,30 @@ import { StoriesHover } from "@app/containers/StoriesHover"
 
 import { AppContext } from "@app/contexts"
 import { StoriesContext } from "@app/contexts/StoriesContext"
-import { STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
 import { storiesReducer } from "@app/reducers/storiesReducer"
 import { getInitialValue } from "@app/reducers/storiesReducer/getInitialValue"
-import { IAppContext, IStoriesContext } from "@app/contexts/types.interface"
-import { toggleModal } from "@app/services/toggleModal"
 import { IUsers } from "@app/data/interfaces/users.interface"
 import { USERS } from "@app/data/users"
 import { STORIES } from "@app/data/stories"
-import { Timer } from "@app/libs/Timer"
-import { startStoryTransition } from "@app/services/startStoryTransition"
 import { startStoryTransitionProps } from "@app/services/startStoryTransition/types.interface"
 import { getCurrentStory } from "@app/containers/StoriesHover/utils"
 
+import { IAppContext } from "@app/types/interfaces/appContext.interface"
+import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface"
+
+import { handlePause, handleClick } from "./utils"
+import { IPayload } from "@app/types/interfaces/payload.interface"
+
 const StoryPortal: React.FC = (): JSX.Element => {
   const { dispatch, modal: { userId, userName } } = useContext(AppContext) as IAppContext
-  
   const [inPause, setInPause] = useState<boolean>(false)
-  const [storiesState, storiesDispatch] = useReducer(
-    storiesReducer,
-    getInitialValue(STORIES[userId].stories, userId)
-  )
+  const initialStories = STORIES[userId].stories
+  const storiesInitialValue = getInitialValue(initialStories, userId)
 
-  const storiesStateInitialValue = {
-    ...storiesState as IStoriesContext,
-    storiesDispatch
-  }
+  const [storiesState, storiesDispatch] = useReducer( storiesReducer, storiesInitialValue )
+  const storiesStateInitialValue = { ...storiesState as IStoriesContext, storiesDispatch }
     
-  const { timing, currentStories, currentStory, startTiming } = storiesState
+  const { timing, currentStories, currentStory } = storiesState
   const { currentStoryIndex } = getCurrentStory(currentStories, currentStory)
 
   const storyTransitionConfig: startStoryTransitionProps = {
@@ -42,16 +38,10 @@ const StoryPortal: React.FC = (): JSX.Element => {
     storiesDispatch,
     dispatch,
     currentStories,
-    currentStoryIndex
-  }
-
-  const handleClick = () => dispatch && toggleModal(dispatch)
-  const handlePause = () => {
-    if(!inPause) clearTimeout(Timer.id)
-    if(inPause) Timer.id = setTimeout(startStoryTransition(storyTransitionConfig), timing)
-
-    storiesDispatch({ type: STORIES_REDUCER_TYPES.toggleLoading })
-    setInPause(prev => !prev)
+    currentStoryIndex,
+    timing,
+    inPause,
+    setInPause
   }
 
   /** modal.userID equals name */
@@ -72,7 +62,7 @@ const StoryPortal: React.FC = (): JSX.Element => {
             />
 
             <div className="flex items-center space-x-2">
-              <button onClick={handlePause}>
+              <button onClick={handlePause(storyTransitionConfig)}>
                 <PostIcon
                   iconFn={() => inPause ? FaPlay : FaPause}
                   iconSize="text-sm"
@@ -80,7 +70,7 @@ const StoryPortal: React.FC = (): JSX.Element => {
                 />
               </button>
 
-              <button onClick={handleClick}>
+              <button onClick={handleClick(dispatch as React.Dispatch<IPayload>)}>
                 <PostIcon iconFn={() => MdOutlineClear} />
               </button>
             </div>
