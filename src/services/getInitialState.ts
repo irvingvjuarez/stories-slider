@@ -1,8 +1,6 @@
-import React from "react";
-import { IAppContext } from "../contexts/types.interface";
-import { IPayload } from "@app/reducers/types.interface"
+import { IAppContext } from "@app/types/interfaces/appContext.interface";
 
-// Returning initial state of the whole
+// Returning initial state of the whole app
 export const getInitialState = (): IAppContext => ({
   modal: {
     status: false,
