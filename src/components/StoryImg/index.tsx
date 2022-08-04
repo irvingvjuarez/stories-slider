@@ -11,6 +11,7 @@ import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface"
 import { IAppContext } from "@app/types/interfaces/appContext.interface"
 
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs"
+import { STORIES } from "@app/data/stories"
 
 export interface StoryImgProps {
   imgUrl: string;
@@ -20,6 +21,10 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
   const { storiesDispatch, currentStories } = useContext(StoriesContext) as IStoriesContext
   const { dispatch, modal:{ userId } } = useContext(AppContext) as IAppContext
   const { currentStoryIndex } = getCurrentStory(currentStories, imgUrl)
+  const isLastStory = currentStoryIndex >= currentStories.length - 1
+  const isLastAuthor = userId >= STORIES.length - 1
+  const isVeryLastStory = (isLastStory && isLastAuthor)
+
   const configStoryTransition: startStoryTransitionProps = {
     userId,
     currentStoryIndex,
@@ -41,9 +46,11 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
         onLoad={handleLoad(configStoryTransition)}
       />
 
-      <StoryButton>
-        <BsFillArrowRightCircleFill className="text-xl" />
-      </StoryButton>
+      {!isVeryLastStory &&
+        <StoryButton>
+          <BsFillArrowRightCircleFill className="text-xl" />
+        </StoryButton>
+      }
     </div>
   )
 }
