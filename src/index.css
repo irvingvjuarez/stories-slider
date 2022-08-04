@@ -20,6 +20,14 @@ body{
   background: linear-gradient(to right top,#ffc600 20%,#ff0040,#e600cc 80%);
 }
 
+.left-dir-gradient:active {
+  background: linear-gradient(90deg, rgba(0,0,0,0.5), transparent);
+}
+
+.right-dir-gradient:active {
+  background: linear-gradient(-90deg, rgba(0,0,0,0.5), transparent);
+}
+
 .toHidden{
   overflow-y: hidden;
 }
