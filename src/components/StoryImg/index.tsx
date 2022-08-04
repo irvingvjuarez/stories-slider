@@ -13,6 +13,8 @@ import { StoryButton } from "@app/components/StoryButton"
 import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface"
 import { IAppContext } from "@app/types/interfaces/appContext.interface"
 
+import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs"
+
 export interface StoryImgProps {
   imgUrl: string;
 }
@@ -37,7 +39,9 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
 
   return(
     <div className="mx-auto h-[85vh] max-w-[500px] px-2 relative">
-      <StoryButton direction="left" />
+      <StoryButton direction="left">
+        <BsFillArrowLeftCircleFill className="text-xl" />
+      </StoryButton>
 
       <img
         src={imgUrl}
@@ -46,7 +50,9 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
         onLoad={handleLoad}
       />
 
-      <StoryButton />
+      <StoryButton>
+        <BsFillArrowRightCircleFill className="text-xl" />
+      </StoryButton>
     </div>
   )
 }
