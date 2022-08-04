@@ -1,4 +1,4 @@
-import { IPayload } from "@app/reducers/types.interface"
+import { IPayload } from "./payload.interface"
 
 export interface IStoriesContext {
   userId: number;
@@ -7,5 +7,6 @@ export interface IStoriesContext {
   loading: boolean;
   storiesDispatch: React.Dispatch<IPayload> | null
   timing: number;
-  startTiming: number
+  startTiming: number;
+  userName?: string;
 }

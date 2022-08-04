@@ -1,6 +1,6 @@
-import { IAppContext } from "@app/contexts/types.interface"
+import { IAppContext } from "@app/types/interfaces/appContext.interface"
+import { IPayload } from "@app/types/interfaces/payload.interface"
 import { REDUCER_TYPES } from "./types.enums"
-import { IPayload } from "./types.interface"
 
 export const reducerFn = (state: IAppContext, payload: IPayload) => {
   const { type, config } = payload

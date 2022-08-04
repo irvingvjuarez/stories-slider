@@ -1,4 +1,4 @@
-import { IPayload } from "@app/reducers/types.interface"
+import { IPayload } from "./payload.interface"
 
 export interface IAppContext {
   modal: {

@@ -1,7 +1,7 @@
-import { IStoriesContext } from "@app/contexts/types.interface"
 import { STORY_TIMING } from "@app/globals"
+import { IStoriesConfig } from "@app/types/interfaces/storiesConfig.interface"
 
-export const getInitialValue = (currentStories: string[], userId: number): IStoriesContext => {
+export const getInitialValue = (currentStories: string[], userId: number): IStoriesConfig => {
   return {
     userId,
     currentStories,
