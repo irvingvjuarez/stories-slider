@@ -7,6 +7,7 @@ import { startStoryTransitionProps } from "@app/services/startStoryTransition/ty
 import { handleLoad } from "./utils"
 
 import { StoryButton } from "@app/components/StoryButton"
+import { ConditionalNode } from "@app/components/ConditionalNode"
 import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface"
 import { IAppContext } from "@app/types/interfaces/appContext.interface"
 
@@ -39,11 +40,11 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
 
   return(
     <div className="mx-auto h-[85vh] max-w-[500px] px-2 relative">
-      {!isVeryFirstStory && 
+      <ConditionalNode condition={!isVeryFirstStory}>
         <StoryButton direction="left">
           <BsFillArrowLeftCircleFill className="text-xl" />
         </StoryButton>
-      }
+      </ConditionalNode>
 
       <img
         src={imgUrl}
@@ -52,11 +53,11 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
         onLoad={handleLoad(configStoryTransition)}
       />
 
-      {!isVeryLastStory &&
+      <ConditionalNode condition={!isVeryLastStory}>
         <StoryButton>
           <BsFillArrowRightCircleFill className="text-xl" />
         </StoryButton>
-      }
+      </ConditionalNode>
     </div>
   )
 }
