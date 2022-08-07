@@ -1,7 +1,8 @@
-import { IStoriesContext } from "@app/contexts/types.interface"
 import { STORY_TIMING } from "@app/globals"
+import { IPayload } from "@app/types/interfaces/payload.interface"
+import { IStoriesConfig } from "@app/types/interfaces/storiesConfig.interface"
+import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface"
 import { STORIES_REDUCER_TYPES } from "../types.enums"
-import { IPayload, IStoriesConfig } from "../types.interface"
 
 export const storiesReducer = (state: IStoriesContext, payload: IPayload): IStoriesContext => {
   const { type, content } = payload
@@ -36,8 +37,8 @@ export const storiesReducer = (state: IStoriesContext, payload: IPayload): IStor
     case STORIES_REDUCER_TYPES.setNewStoriesBatch:
       return {
         ...state,
-        currentStory: config.newStoriesBatch?.[0] as string,
-        currentStories: config.newStoriesBatch as string[],
+        currentStory: config.currentStories?.[0] as string,
+        currentStories: config.currentStories as string[],
       }
     default:
       return state
