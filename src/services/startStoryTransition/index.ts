@@ -5,6 +5,7 @@ import { USERS } from "@app/data/users";
 import { toggleModal } from "@app/services/toggleModal";
 import { startStoryTransitionProps } from "./types.interface"
 import { IPayload } from "@app/types/interfaces/payload.interface";
+import { IStoriesConfig } from "@app/types/interfaces/storiesConfig.interface";
 
 export const startStoryTransition = (config: startStoryTransitionProps) => () => {
   const { 
@@ -35,7 +36,7 @@ export const startStoryTransition = (config: startStoryTransitionProps) => () =>
 
       storiesDispatch?.({
         type: STORIES_REDUCER_TYPES.setNewStoriesBatch,
-        config: { newStoriesBatch }
+        config: { currentStories: newStoriesBatch } as IStoriesConfig
       })
 
       dispatch?.({ type: REDUCER_TYPES.setModalUser, config: {
