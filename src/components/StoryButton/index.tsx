@@ -3,6 +3,9 @@ import { setNextPrevStory } from "@app/services/setNextPrevStory"
 import { useContext } from "react";
 import { StoriesContext } from "@app/contexts/StoriesContext";
 import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface";
+import { INextPrevStory } from "@app/types/interfaces/nextPrevStoryConfig.interface";
+import { AppContext } from "@app/contexts";
+import { IAppContext } from "@app/types/interfaces/appContext.interface";
 
 interface StoryButtonProps {
   children?: React.ReactNode;
@@ -13,12 +16,15 @@ const StoryButton: React.FC<StoryButtonProps> = ({
   children,
   direction = "right"
 }): JSX.Element => {
-  const { userId, currentStories, currentStory } = useContext(StoriesContext) as IStoriesContext
-  const nextPrevStoryConfig = {
+  const { userId, currentStories, currentStory, storiesDispatch } = useContext(StoriesContext) as IStoriesContext
+  const { dispatch } = useContext(AppContext) as IAppContext
+  const nextPrevStoryConfig: INextPrevStory = {
     direction,
     userId,
     currentStories,
-    currentStory
+    currentStory,
+    storiesDispatch,
+    dispatch,
   }
 
   const handleChangeStory = (triggerEl: "container" | "wrapper") => () => {

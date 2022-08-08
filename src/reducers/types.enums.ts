@@ -8,5 +8,5 @@ export enum STORIES_REDUCER_TYPES {
   setSingleStory = "set_single_story",
   setNewStoriesBatch = "set_new_story_batch",
   toggleLoading = "toggle_loading",
-  startTiming = "start_timing"
+  startTiming = "start_timing",
 }
