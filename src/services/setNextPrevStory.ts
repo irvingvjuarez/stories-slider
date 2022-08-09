@@ -13,6 +13,13 @@ export const setNextPrevStory = (config: INextPrevStory) => {
     storiesDispatch, dispatch
   } = config
   const { currentStoryIndex } = getCurrentStory(currentStories, currentStory)
+  const endBannerTransition = () => {
+    const spanEl = document.getElementById(currentStory)
+    spanEl?.classList.remove("animation-pause")
+    spanEl?.classList.remove("story-hover-transition")
+
+    if(direction === "right") spanEl?.classList.add("transition-finished")
+  }
 
   if(direction === "left"){
     const storiesInLeft = currentStoryIndex > 0
@@ -21,7 +28,7 @@ export const setNextPrevStory = (config: INextPrevStory) => {
 
     if(goingLeft){
       if(storiesInLeft){
-        // TODO: Finish transition
+        endBannerTransition()
 
         storiesDispatch?.({
           type: STORIES_REDUCER_TYPES.setSingleStory,
@@ -51,15 +58,15 @@ export const setNextPrevStory = (config: INextPrevStory) => {
     const authorsInRight = userId < STORIES.length - 1
     const goingRight = storiesInRight || authorsInRight
 
-    console.log({
-      storiesInRight,
-      authorsInRight,
-      userId
-    })
+    // console.log({
+    //   storiesInRight,
+    //   authorsInRight,
+    //   userId
+    // })
     
     if(goingRight){
       if(storiesInRight){
-        // TODO: Finish transition
+        endBannerTransition()
 
         storiesDispatch?.({
           type: STORIES_REDUCER_TYPES.setSingleStory,
