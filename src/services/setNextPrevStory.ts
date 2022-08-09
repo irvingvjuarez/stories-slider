@@ -18,7 +18,12 @@ export const setNextPrevStory = (config: INextPrevStory) => {
     spanEl?.classList.remove("animation-pause")
     spanEl?.classList.remove("story-hover-transition")
 
-    if(direction === "right") spanEl?.classList.add("transition-finished")
+    if(direction === "right") {
+      spanEl?.classList.add("transition-finished")
+    }else{
+      const prevSpanEl = document.getElementById(currentStories[currentStoryIndex - 1])
+      prevSpanEl?.classList.remove("story-hover-transition")
+    }
   }
 
   if(direction === "left"){

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react"
 
 import { StoryImg } from "@app/components/StoryImg"
 import { StoriesContext } from "@app/contexts/StoriesContext"
-import { IStoriesContext } from "@app/contexts/types.interface"
+import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface"
 
 interface StoriesHoverProps {
   children: JSX.Element
