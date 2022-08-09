@@ -1,61 +1,27 @@
-import React, { useContext, useEffect, useReducer, useState } from "react"
+import React from "react"
 import { MdOutlineClear } from "react-icons/md"
 import { FaPause, FaPlay } from "react-icons/fa"
 import { PostIcon } from "@app/components/PostIcon"
 import { StoryBubble } from "@app/components/StoryBubble"
 import { StoriesHover } from "@app/containers/StoriesHover"
 
-import { AppContext } from "@app/contexts"
 import { StoriesContext } from "@app/contexts/StoriesContext"
-import { storiesReducer } from "@app/reducers/storiesReducer"
-import { getInitialValue } from "@app/reducers/storiesReducer/getInitialValue"
-import { IUsers } from "@app/data/interfaces/users.interface"
-import { USERS } from "@app/data/users"
-import { STORIES } from "@app/data/stories"
-import { startStoryTransitionProps } from "@app/services/startStoryTransition/types.interface"
-import { getCurrentStory } from "@app/containers/StoriesHover/utils"
-
-import { IAppContext } from "@app/types/interfaces/appContext.interface"
 import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface"
 
 import { handlePause, handleClick } from "./utils"
 import { IPayload } from "@app/types/interfaces/payload.interface"
-import { STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
+import { useStoryPause } from "@app/hooks/useStoryPause"
 
 const StoryPortal: React.FC = (): JSX.Element => {
-  const { dispatch, modal: { userId, userName } } = useContext(AppContext) as IAppContext
-  const [inPause, setInPause] = useState<boolean>(false)
-  const initialStories = STORIES[userId].stories
-  const storiesInitialValue = getInitialValue(initialStories, userId)
-
-  const [storiesState, storiesDispatch] = useReducer( storiesReducer, storiesInitialValue )
-  const storiesStateInitialValue = { ...storiesState as IStoriesContext, storiesDispatch }
-    
-  const { timing, currentStories, currentStory } = storiesState
-  const { currentStoryIndex } = getCurrentStory(currentStories, currentStory)
-
-  const storyTransitionConfig: startStoryTransitionProps = {
-    userId,
-    storiesDispatch,
-    dispatch,
-    currentStories,
-    currentStoryIndex,
-    timing,
+  const {
+    storiesStateInitialValue,
+    storyTransitionConfig,
     inPause,
-    setInPause
-  }
-
-  /** modal.userID equals name */
-  const { avatar, name, id } = USERS.find(user => user.name === userName) as IUsers
-
-  useEffect(() => {
-    // setTimeout(() => {
-    // }, 0)
-    if(inPause){
-      storiesDispatch({ type: STORIES_REDUCER_TYPES.toggleLoading })
-      setInPause(false)
-    }
-  }, [currentStory])
+    dispatch,
+    userName,
+    userAvatar,
+    userId
+  } = useStoryPause()
 
   return(
     <StoriesContext.Provider value={storiesStateInitialValue as IStoriesContext}>
@@ -63,9 +29,9 @@ const StoryPortal: React.FC = (): JSX.Element => {
         <StoriesHover>
           <div className="p-3 flex justify-between items-center">
             <StoryBubble
-              imgUrl={avatar}
-              userName={name}
-              userId={id}
+              imgUrl={userAvatar}
+              userName={userName as string}
+              userId={userId}
               isPost={true}
               width="w-10"
               height="h-10"
