@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState } from "react"
+import React, { useContext, useEffect, useReducer, useState } from "react"
 import { MdOutlineClear } from "react-icons/md"
 import { FaPause, FaPlay } from "react-icons/fa"
 import { PostIcon } from "@app/components/PostIcon"
@@ -20,6 +20,7 @@ import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface"
 
 import { handlePause, handleClick } from "./utils"
 import { IPayload } from "@app/types/interfaces/payload.interface"
+import { STORIES_REDUCER_TYPES } from "@app/reducers/types.enums"
 
 const StoryPortal: React.FC = (): JSX.Element => {
   const { dispatch, modal: { userId, userName } } = useContext(AppContext) as IAppContext
@@ -46,6 +47,15 @@ const StoryPortal: React.FC = (): JSX.Element => {
 
   /** modal.userID equals name */
   const { avatar, name, id } = USERS.find(user => user.name === userName) as IUsers
+
+  useEffect(() => {
+    // setTimeout(() => {
+    // }, 0)
+    if(inPause){
+      storiesDispatch({ type: STORIES_REDUCER_TYPES.toggleLoading })
+      setInPause(false)
+    }
+  }, [currentStory])
 
   return(
     <StoriesContext.Provider value={storiesStateInitialValue as IStoriesContext}>
