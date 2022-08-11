@@ -11,6 +11,7 @@ import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface"
 import { handlePause, handleClick } from "./utils"
 import { IPayload } from "@app/types/interfaces/payload.interface"
 import { useStoryPause } from "@app/hooks/useStoryPause"
+import { FULL_STORIES_DATA } from "@app/data/fullStoriesData"
 
 const StoryPortal: React.FC = (): JSX.Element => {
   const {
@@ -22,6 +23,10 @@ const StoryPortal: React.FC = (): JSX.Element => {
     userAvatar,
     userId
   } = useStoryPause()
+
+  console.log({
+    FULL_STORIES_DATA
+  })
 
   return(
     <StoriesContext.Provider value={storiesStateInitialValue as IStoriesContext}>
