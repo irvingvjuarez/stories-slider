@@ -21,7 +21,7 @@ const StoriesHover: React.FC<StoriesHoverProps> = ({ children }): JSX.Element =>
   return(
     <section className="max-w-[900px] mx-auto h-screen flex items-center">
       <StoryImg imgUrl={currentStory}>
-        <div className="absolute top-0 left-0 w-full flex flex-col items-center z-[2]">
+        <div className="absolute top-0 left-0 w-full flex flex-col items-center z-[2] bg-gradient-to-b from-[rgba(0,0,0,0.5)] to-transparent">
           <div className="flex justify-between pt-3 space-x-1 px-1 w-[95%]">
             {currentStories.map(story => (
               <div key={story} className="w-full relative">
