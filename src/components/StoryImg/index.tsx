@@ -16,9 +16,10 @@ import { STORIES } from "@app/data/stories"
 
 export interface StoryImgProps {
   imgUrl: string;
+  children: JSX.Element;
 }
 
-const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
+const StoryImg: React.FC<StoryImgProps> = ({ imgUrl, children }): JSX.Element => {
   const { storiesDispatch, currentStories } = useContext(StoriesContext) as IStoriesContext
   const { dispatch, modal:{ userId } } = useContext(AppContext) as IAppContext
   const { currentStoryIndex } = getCurrentStory(currentStories, imgUrl)
@@ -39,7 +40,9 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl }): JSX.Element => {
   }
 
   return(
-    <div className="mx-auto h-[85vh] max-w-[500px] px-2 relative">
+    <div className="mx-auto h-[90vh] max-w-[500px] px-2 relative">
+      {children}
+
       <ConditionalNode condition={!isVeryFirstStory}>
         <StoryButton direction="left">
           <BsFillArrowLeftCircleFill className="text-xl" />

@@ -27,7 +27,7 @@ const StoryPortal: React.FC = (): JSX.Element => {
     <StoriesContext.Provider value={storiesStateInitialValue as IStoriesContext}>
       <section className="fixed top-0 w-full h-screen bg-black">
         <StoriesHover>
-          <div className="p-3 flex justify-between items-center">
+          <div className="p-3 flex justify-between items-center w-full">
             <StoryBubble
               imgUrl={userAvatar}
               userName={userName as string}
