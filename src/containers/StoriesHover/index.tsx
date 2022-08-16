@@ -13,15 +13,16 @@ import { IPayload } from "@app/types/interfaces/payload.interface"
 import { handlePause, handleClick } from "./utils"
 
 const StoriesHover: React.FC = (): JSX.Element => {
-  const { currentStories, currentStory, loading } = useContext(StoriesContext) as IStoriesContext
-
   const {
     storyTransitionConfig,
     inPause,
     dispatch,
     userName,
     userAvatar,
-    userId
+    userId,
+    currentStory,
+    currentStories,
+    loading
   } = useStoryPause()
 
   useEffect(() => {

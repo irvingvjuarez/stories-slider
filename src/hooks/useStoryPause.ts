@@ -20,7 +20,7 @@ export const useStoryPause = () => {
   const [storiesState, storiesDispatch] = useReducer( storiesReducer, storiesInitialValue )
   const storiesStateInitialValue = { ...storiesState as IStoriesContext, storiesDispatch }
     
-  const { timing, currentStories, currentStory } = storiesState
+  const { timing, currentStories, currentStory, loading } = storiesState
   const { currentStoryIndex } = getCurrentStory(currentStories, currentStory)
 
   const storyTransitionConfig: startStoryTransitionProps = {
@@ -50,6 +50,9 @@ export const useStoryPause = () => {
     dispatch,
     userAvatar,
     userName,
-    userId
+    userId,
+    currentStory,
+    loading,
+    currentStories
   }
 }
