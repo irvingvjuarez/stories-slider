@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { getCurrentStory } from "@app/containers/StoriesHover/utils"
+import { useStoriesEdges } from "@app/hooks/useStoriesEdges"
 
 import { AppContext } from "@app/contexts"
 import { StoriesContext } from "@app/contexts/StoriesContext"
@@ -12,7 +13,6 @@ import { IStoriesContext } from "@app/types/interfaces/storiesContext.interface"
 import { IAppContext } from "@app/types/interfaces/appContext.interface"
 
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs"
-import { STORIES } from "@app/data/stories"
 
 export interface StoryImgProps {
   imgUrl: string;
@@ -24,13 +24,6 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl, children }): JSX.Element =>
   const { dispatch, modal:{ userId } } = useContext(AppContext) as IAppContext
   const { currentStoryIndex } = getCurrentStory(currentStories, imgUrl)
 
-  const isFirstStory = currentStoryIndex <= 0;
-  const isFirstAuthor = userId <= 0;
-  const isVeryFirstStory = (isFirstAuthor && isFirstStory)
-  const isLastStory = currentStoryIndex >= currentStories.length - 1
-  const isLastAuthor = userId >= STORIES.length - 1
-  const isVeryLastStory = (isLastStory && isLastAuthor)
-
   const configStoryTransition: startStoryTransitionProps = {
     userId,
     currentStoryIndex,
@@ -38,6 +31,11 @@ const StoryImg: React.FC<StoryImgProps> = ({ imgUrl, children }): JSX.Element =>
     storiesDispatch,
     dispatch,
   }
+
+  const {
+    isVeryFirstStory,
+    isVeryLastStory
+  } = useStoriesEdges(currentStoryIndex, userId, currentStories)
 
   return(
     <div className="mx-auto h-[90vh] max-w-[500px] px-2 relative">
