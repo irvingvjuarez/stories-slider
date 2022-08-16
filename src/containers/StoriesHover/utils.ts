@@ -21,11 +21,6 @@ export const handlePause = (storyTransitionConfig: startStoryTransitionProps) =>
   setInPause?.(prev => !prev)
 }
 
-export const initTransition = (spanId: string) => {
-  const spanTransition = document.getElementById(spanId)
-  spanTransition?.classList.add("story-hover-transition")
-}
-
 export const getCurrentStory = (stories: string[], current: string) => {
   const currentStoryIndex = stories.findIndex(story => story === current)
   return {
